@@ -1,0 +1,10 @@
+pandas
+numpy
+opencv-python
+openai
+Pillow
+openpyxl
+fpdf2
+scikit-learn
+scipy
+matplotlib

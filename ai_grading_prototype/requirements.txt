@@ -1,0 +1,7 @@
+openai
+pandas
+openpyxl
+opencv-python
+numpy
+matplotlib
+fpdf2

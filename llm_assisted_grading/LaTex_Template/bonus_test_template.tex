@@ -1,0 +1,146 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=12mm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}[remember picture,overlay]
+% ======= Adjustable layout parameters (all in mm) =======
+\def\Margin{12mm}
+
+\def\CornerSize{5mm}
+\def\CornerOffset{5mm}
+
+\def\HeaderH{75mm}
+
+\def\BubbleD{4mm}
+\def\RowPitch{6mm}
+\def\ColPitch{8mm}
+
+\def\GrpPitch{12mm}
+\def\VerPitch{14mm}
+
+\def\LabelPad{4mm}
+\def\BoxGap{6mm}
+\def\BoxStroke{0.6mm}
+\def\Stroke{0.4mm}
+
+% ======= Page anchors =======
+\coordinate (NW) at (current page.north west);
+\coordinate (NE) at (current page.north east);
+\coordinate (SW) at (current page.south west);
+\coordinate (SE) at (current page.south east);
+
+% Inner content frame (margins)
+\coordinate (TL) at ($(NW)+(\Margin,-\Margin)$);
+\coordinate (TR) at ($(NE)+(-\Margin,-\Margin)$);
+\coordinate (BL) at ($(SW)+(\Margin,\Margin)$);
+\coordinate (BR) at ($(SE)+(-\Margin,\Margin)$);
+
+% ======= Corner marks (solid squares) =======
+\draw[fill=black] ($(NW)+(\CornerOffset,-\CornerOffset)$) rectangle ++(\CornerSize,-\CornerSize);
+\draw[fill=black] ($(NE)+(-\CornerOffset-\CornerSize,-\CornerOffset)$) rectangle ++(\CornerSize,-\CornerSize);
+\draw[fill=black] ($(SW)+(\CornerOffset,\CornerOffset+\CornerSize)$) rectangle ++(\CornerSize,-\CornerSize);
+\draw[fill=black] ($(SE)+(-\CornerOffset-\CornerSize,\CornerOffset+\CornerSize)$) rectangle ++(\CornerSize,-\CornerSize);
+
+% ======= Title & meta (top-right inside header, 3 lines) =======
+\node[anchor=north east] at ($(TR)+(0,2mm)$) {%
+  \shortstack[r]{\Large
+    Mathematics for Business and Economics I \\[3pt]
+    Prof. Vincent Ginis, Melika Mobini \& Vincent Holst \\[3pt]
+    Bonus Test 
+  }
+};
+
+% ======= Student ID OMR (7x10) =======
+\node[anchor=north west] at ($(TL)+(18mm,2mm)$) {\bfseries Student ID};
+
+% Grid origin (center of top-left bubble), relative to TL
+\def\IDLeft{8mm}  % x-offset from TL
+\def\IDTop{8mm}  % y-offset from TL downward
+
+\def\IDCols{7}
+\def\IDRows{10}
+
+% Row labels 0..9 (left of the grid)
+\foreach \r in {0,...,9}{
+  \node[anchor=east,inner sep=0pt] at ($(TL)+(\IDLeft-5mm,-\IDTop - \r*\RowPitch)$) {\footnotesize \r};
+}
+
+% Bubbles: 7 columns x 10 rows
+\foreach \r in {0,...,9}{
+  \foreach \c in {0,...,6}{
+    \draw[line width=\Stroke] ($(TL)+(\IDLeft+\c*\ColPitch,-\IDTop-\r*\RowPitch)$) circle (\BubbleD/2);
+  }
+}
+
+% ======= Group OMR (1–5), to the right of ID grid =======
+\def\GrpLeft{83mm}  
+\def\GrpTop{28mm}   
+
+\node[anchor=south] at ($(TL)+(\GrpLeft+2*\GrpPitch,-\GrpTop+\BubbleD/2+3mm)$) {\bfseries Group};
+\foreach \i in {0,...,4}{
+  \draw[line width=\Stroke] ($(TL)+(\GrpLeft+\i*\GrpPitch,-\GrpTop)$) circle (\BubbleD/2);
+  \node[anchor=north,inner sep=0pt] at ($(TL)+(\GrpLeft+\i*\GrpPitch,-\GrpTop-4.5mm)$) {\footnotesize \the\numexpr\i+1\relax};
+}
+
+% ======= Version OMR (A/B) =======
+\def\VerLeft{\GrpLeft}
+\def\VerTop{54mm} 
+
+% Label centered above the version bubbles
+\node[anchor=south] at ($(TL)+(\VerLeft+0.5*\VerPitch,-\VerTop+\BubbleD/2+3mm)$) {\bfseries Version};
+
+% Bubbles + labels
+\foreach \i/\lab in {0/A,1/B}{
+  \coordinate (VerBubble) at ($(TL)+(\VerLeft+\i*\VerPitch,-\VerTop)$);
+  \draw[line width=\Stroke] (VerBubble) circle (\BubbleD/2);
+  \node[anchor=north,inner sep=0pt] at ($(VerBubble)+(0,-4.5mm)$) {\footnotesize \lab};
+}
+
+\node[anchor=north west, text=black, align=left, text width=0.42\textwidth] 
+  at ($(TR)+(-80mm,-38 mm)$) {%
+    Disclaimer: 
+    \footnotesize Only answers in the black boxes will be graded. 
+    Write down intermediate steps for full points. 
+    If your student ID ends with an even number, 
+    make version A. Otherwise, make version B. 
+    Indicate your group and version left.
+};
+
+% ======= Answer regions =======
+\def\Q1H{70mm}
+\def\BodyTop{\HeaderH+6mm}
+
+% Q1 box
+\draw[line width=\BoxStroke] ($(TL)+(0,-\BodyTop)$) rectangle ($(TR)+(0,-\BodyTop-\Q1H)$);
+\node[anchor=north west,inner sep=2mm] at ($(TL)+(0,-\BodyTop)$) {\bfseries Question 1};
+
+% ROI ticks for Q1
+\def\Tick{4mm}
+\coordinate (Q1TL) at ($(TL)+(0,-\BodyTop)$);
+\coordinate (Q1TR) at ($(TR)+(0,-\BodyTop)$);
+\coordinate (Q1BL) at ($(TL)+(0,-\BodyTop-\Q1H)$);
+\coordinate (Q1BR) at ($(TR)+(0,-\BodyTop-\Q1H)$);
+\draw[line width=\Stroke] (Q1TL) -- ++(\Tick,0) (Q1TL) -- ++(0,-\Tick);
+\draw[line width=\Stroke] (Q1TR) -- ++(-\Tick,0) (Q1TR) -- ++(0,-\Tick);
+\draw[line width=\Stroke] (Q1BL) -- ++(\Tick,0) (Q1BL) -- ++(0,\Tick);
+\draw[line width=\Stroke] (Q1BR) -- ++(-\Tick,0) (Q1BR) -- ++(0,\Tick);
+
+% Q2 box
+\def\QGap{6mm}
+\draw[line width=\BoxStroke] ($(TL)+(0,-\BodyTop-\Q1H-\QGap)$) rectangle ($(BR)$);
+\node[anchor=north west,inner sep=2mm] at ($(TL)+(0,-\BodyTop-\Q1H-\QGap)$) {\bfseries Question 2};
+
+% ROI ticks for Q2
+\coordinate (Q2TL) at ($(TL)+(0,-\BodyTop-\Q1H-\QGap)$);
+\coordinate (Q2TR) at ($(TR)+(0,-\BodyTop-\Q1H-\QGap)$);
+\coordinate (Q2BL) at ($(BL)$);
+\coordinate (Q2BR) at ($(BR)$);
+\draw[line width=\Stroke] (Q2TL) -- ++(\Tick,0) (Q2TL) -- ++(0,-\Tick);
+\draw[line width=\Stroke] (Q2TR) -- ++(-\Tick,0) (Q2TR) -- ++(0,-\Tick);
+\draw[line width=\Stroke] (Q2BL) -- ++(\Tick,0) (Q2BL) -- ++(0,\Tick);
+\draw[line width=\Stroke] (Q2BR) -- ++(-\Tick,0) (Q2BR) -- ++(0,\Tick);
+\end{tikzpicture}
+\end{document}

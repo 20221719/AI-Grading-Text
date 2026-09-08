@@ -1,0 +1,4 @@
+SKIP TEMPLATE_BONUS_TEST_ENG_Page_10.jpg: user skipped manual corner selection
+SKIP TEMPLATE_BONUS_TEST_ENG_Page_04.jpg: version B does not match student ID 0123456
+SKIP TEMPLATE_BONUS_TEST_ENG_Page_07.jpg: version A does not match student ID 0536219
+SKIP TEMPLATE_BONUS_TEST_ENG_Page_08.jpg: version A does not match student ID 1233455

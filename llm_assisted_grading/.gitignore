@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Python cache/build
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Local environment files (keep template)
+.env
+.env.*
+!.env.example
+
+# OpenAI batch job IDs (operational metadata)
+*_batches/batch_ids_*.txt
+
+# Existing generic temp/log patterns
+*.log
+*~
