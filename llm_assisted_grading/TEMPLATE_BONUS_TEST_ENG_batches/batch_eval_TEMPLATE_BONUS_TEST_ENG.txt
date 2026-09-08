@@ -1,5 +1,0 @@
-Downloaded batch 0 to TEMPLATE_BONUS_TEST_ENG_batches/TEMPLATE_BONUS_TEST_ENG_batch0.jsonl
-Downloaded batch 1 to TEMPLATE_BONUS_TEST_ENG_batches/TEMPLATE_BONUS_TEST_ENG_batch1.jsonl
-Downloaded batch 2 to TEMPLATE_BONUS_TEST_ENG_batches/TEMPLATE_BONUS_TEST_ENG_batch2.jsonl
-Downloaded batch 3 to TEMPLATE_BONUS_TEST_ENG_batches/TEMPLATE_BONUS_TEST_ENG_batch3.jsonl
-Downloaded batch 4 to TEMPLATE_BONUS_TEST_ENG_batches/TEMPLATE_BONUS_TEST_ENG_batch4.jsonl
